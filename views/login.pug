@@ -1,0 +1,30 @@
+doctype html
+html
+  head
+    title Login - Labra
+    // Importamos fuentes modernas de Google
+    link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet")
+    link(rel="stylesheet", href="/css/style.css")
+
+  body.login-body
+    .login-box
+      .logo-container
+        img.logo(src="/assets/labralogo.png" alt="Logo")
+      
+      h2 Bienvenido
+      p.subtitle Inicia sesión en tu punto de venta
+
+      if error
+        .error-message
+          span ⚠️ #{error}
+
+      form(action="/login" method="POST")
+        .input-group
+          label Usuario
+          input(type="text" name="user_name" placeholder="Ej: gcampoverde" required)
+        
+        .input-group
+          label Contraseña
+          input(type="password" name="password" placeholder="••••••••" required)
+
+        button.btn-login(type="submit") Ingresar al Sistema

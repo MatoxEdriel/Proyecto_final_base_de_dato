@@ -1,0 +1,94 @@
+doctype html
+html
+  head
+    title POS - Labra
+    // Fuentes de Google y FontAwesome para iconos
+    link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet")
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css")
+    link(rel="stylesheet", href="/css/style.css")
+
+  body
+    // HEADER
+    .pos-header
+      .header-left
+        img.header-logo(src="/assets/labralogo.png" alt="Logo")
+        span.brand-name Labra POS
+      
+      .header-right
+        span.user-info 
+          i.fas.fa-user-circle
+          |  #{usuario}
+        a.btn-logout(href="/logout") 
+          i.fas.fa-sign-out-alt
+          |  Salir
+
+    // MAIN CONTAINER
+    .pos-container
+
+      // SECCIÓN IZQUIERDA: PRODUCTOS
+      .products-section
+        
+        // Barra de Búsqueda y Categorías
+        .controls-bar
+          .search-wrapper
+            i.fas.fa-search
+            input(type="text" placeholder="Buscar producto..." id="searchProduct")
+          .categories
+            button.cat-btn.active Todo
+            button.cat-btn Comidas
+            button.cat-btn Bebidas
+
+        // Rejilla de Productos
+        .products-content
+          h2 Catálogo Disponible
+          
+          .product-grid
+            each p in productos
+              // Agregamos data-attributes para usarlos luego con JavaScript
+              .product-card(onclick=`agregarAlCarrito('${p.name}', ${p.price})`)
+                .card-image
+                  i.fas.fa-utensils 
+                  // Si tuvieras fotos reales: img(src=p.image)
+                .card-info
+                  h4= p.name
+                  span.price $#{p.price.toFixed(2)}
+
+      // SECCIÓN DERECHA: TICKET / CARRITO
+      .cart-section
+        .cart-header
+          h3 Orden Actual
+          span.order-id #00123
+
+        // Lista de Items (Aquí JS inyectará el HTML)
+        .cart-items#cartItemsContainer
+          // Ejemplo visual de cómo se verá un item (luego lo borras con JS)
+          .cart-item-placeholder
+            p.empty-msg <i class="fas fa-shopping-basket"></i> Carrito vacío
+
+        // Resumen Financiero
+        .cart-summary
+          .summary-row
+            span Subtotal
+            span#subtotalVal $0.00
+          .summary-row
+            span IVA (15%)
+            span#taxVal $0.00
+          .summary-row.total-row
+            span Total
+            span#totalVal $0.00
+
+        // Botones de Acción
+        .cart-actions
+          button.btn-cancel 
+            i.fas.fa-trash
+            |  Cancelar
+          button.pay-btn 
+            | Pagar 
+            i.fas.fa-chevron-right
+
+    // SCRIPT TEMPORAL (Solo para efectos visuales, lógica va después)
+    script.
+      function agregarAlCarrito(nombre, precio) {
+        alert(`Agregaste ${nombre} por $${precio}`);
+        // Aquí conectaremos la lógica real en el siguiente paso
+      }
