@@ -1,0 +1,52 @@
+doctype html
+html
+  head
+    title Código de Seguridad - Labra
+    link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet")
+    link(rel="stylesheet", href="/css/style.css")
+    style.
+      .email-simulation {
+        background: #e8f0fe;
+        border: 1px dashed #1a73e8;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        color: #1a73e8;
+        font-size: 0.9rem;
+      }
+      .code-display {
+        font-size: 1.5rem;
+        font-weight: bold;
+        letter-spacing: 5px;
+        text-align: center;
+        margin: 10px 0;
+        color: #333;
+      }
+
+  body.login-body
+    .login-box
+      h2 Cambio de Contraseña
+      
+      // Aquí mostramos el código simulado
+      .email-simulation
+        strong 📧 Simulación de Correo:
+        p Hola #{user_name}, hemos recibido una solicitud para restablecer tu contraseña.
+        .code-display #{token}
+        p(style="font-size: 0.8em; text-align: center;") Copia este código y úsalo abajo.
+
+      if error
+        .error-message ⚠️ #{error}
+
+      form(action="/reset-password" method="POST")
+        // Enviamos el ID del usuario oculto para saber a quién cambiarle
+        input(type="hidden" name="user_id" value=user_id)
+        
+        .input-group
+          label Código de Verificación
+          input(type="text" name="token" placeholder="Ingresa el código de arriba" required)
+        
+        .input-group
+          label Nueva Contraseña
+          input(type="password" name="new_password" placeholder="Mínimo 4 caracteres" required)
+          
+        button.btn-login(type="submit") Cambiar Contraseña

@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title Recuperar - Labra
+    link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet")
+    link(rel="stylesheet", href="/css/style.css")
+  body.login-body
+    .login-box
+      h2 Recuperar Acceso
+      p.subtitle Ingresa tu usuario para buscar tu cuenta
+
+      if error
+        .error-message ⚠️ #{error}
+
+      form(action="/forgot-password" method="POST")
+        .input-group
+          label Usuario del Sistema
+          input(type="text" name="user_name" placeholder="Ej: gcampoverde" required)
+        
+        button.btn-login(type="submit") Buscar Cuenta
+      
+      div(style="text-align: center; margin-top: 15px;")
+        a(href="/" style="color: #666; text-decoration: none;") Volver al Login

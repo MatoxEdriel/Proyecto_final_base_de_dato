@@ -1,0 +1,46 @@
+doctype html
+html
+  head
+    title Nueva Venta - Empanadas Store
+    link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet")
+    style.
+      body { font-family: 'Poppins', sans-serif; background: #f4f7fa; padding: 20px; }
+      .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+      h2 { color: #0056b3; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+      
+      .product-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee; }
+      .product-info { flex: 1; }
+      .product-name { font-weight: bold; font-size: 1.1em; }
+      .product-price { color: #28a745; font-weight: bold; }
+      
+      input[type="number"] { width: 60px; padding: 8px; font-size: 1.1em; text-align: center; border: 1px solid #ddd; border-radius: 5px; }
+      
+      .actions { margin-top: 30px; text-align: right; display: flex; justify-content: space-between; align-items: center; }
+      .btn-cancel { color: #666; text-decoration: none; }
+      .btn-submit { background: #0056b3; color: white; border: none; padding: 15px 40px; font-size: 1.2em; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+      .btn-submit:hover { background: #004494; transform: scale(1.02); }
+
+  body
+    .container
+      h2 🛒 Registrar Venta
+      
+      form(action="/procesar-venta" method="POST")
+        // Cliente Genérico por defecto
+        div(style="margin-bottom: 20px; background: #e8f0fe; padding: 10px; border-radius: 5px;")
+          label(style="font-weight:bold; color: #0056b3;") Cliente: 
+          input(type="text" name="customer_name" value="Consumidor Final" style="padding: 5px; width: 60%; margin-left: 10px;")
+
+        // LISTA DE PRODUCTOS
+        each prod in products
+          .product-row
+            .product-info
+              .product-name #{prod.name}
+              div(style="font-size: 0.9em; color: #666;") Stock: #{prod.stock}
+            .product-price $#{prod.price}
+            div
+              // El name es un array: quantity[id_producto]
+              input(type="number" name=`quantities[${prod.id}]` min="0" max=prod.stock placeholder="0")
+        
+        .actions
+          a.btn-cancel(href="/dashboard") Cancelar
+          button.btn-submit(type="submit") ✅ Generar Factura
